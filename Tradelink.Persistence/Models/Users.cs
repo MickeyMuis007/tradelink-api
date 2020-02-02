@@ -7,7 +7,6 @@ namespace Tradelink.Persistence.Models
     {
         public Users()
         {
-            UserRole = new HashSet<UserRole>();
         }
 
         public long Id { get; set; }
@@ -17,6 +16,5 @@ namespace Tradelink.Persistence.Models
         public string Password { get; set; }
         public string Username { get; set; }
 
-        public virtual ICollection<UserRole> UserRole { get; set; }
     }
 }
