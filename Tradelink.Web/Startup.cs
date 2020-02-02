@@ -10,6 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+
+using Tradelink.Persistence.Context;
 
 namespace Tradelink.Web
 {
@@ -25,7 +28,18 @@ namespace Tradelink.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            // services.AddDbContext<TradelinkContext>(cfg => 
+            // {   
+            //     cfg.UseMySQL("server=localhost;database=library;user=root;password=password");
+            //     // cfg.UseMySQL(Configuration.GetConnectionString("Default"));
+            // });
+
+
+
+            services.AddDbContext<TradelinkContext>();
             services.AddControllers();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
