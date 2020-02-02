@@ -14,5 +14,6 @@ namespace Tradelink.Domain.AggregateModels.RequestAggregate
       
     }
 
+    private Request() { }
   }
 }

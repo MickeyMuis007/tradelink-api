@@ -1,8 +1,7 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 using Tradelink.Persistence.Models;
 using Microsoft.Extensions.Configuration;
+using Tradelink.Domain.AggregateModels.RequestAggregate;
 
 namespace Tradelink.Persistence.Context
 {
@@ -20,6 +19,7 @@ namespace Tradelink.Persistence.Context
         }
         
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Request> Requests { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -71,6 +71,17 @@ namespace Tradelink.Persistence.Context
                     .HasColumnType("varchar(255)")
                     .HasCharSet("latin1")
                     .HasCollation("latin1_swedish_ci");
+            });
+
+
+            modelBuilder.Entity<Request>(entity => {
+                entity.ToTable("Request");
+                entity.HasKey(e => e.Id);
+                
+                entity.HasIndex(e => e.Number)
+                    .HasName("UK_Number")
+                    .IsUnique();
+
             });
 
             OnModelCreatingPartial(modelBuilder);
