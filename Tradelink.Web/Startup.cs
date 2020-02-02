@@ -29,15 +29,15 @@ namespace Tradelink.Web
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<TradelinkContext>(cfg => 
-            {   
-                // cfg.UseMySql("server=localhost;database=eazi4u;user=root;pwd=password", x => x.ServerVersion("5.7.29-mysql"));
-                cfg.UseMySql(Configuration.GetConnectionString("Default"), x => x.ServerVersion("5.7.29-mysql"));
-            });
+            // services.AddDbContext<TradelinkContext>(cfg => 
+            // {   
+            //     // cfg.UseMySql("server=localhost;database=eazi4u;user=root;pwd=password", x => x.ServerVersion("5.7.29-mysql"));
+            //     cfg.UseMySql(Configuration.GetConnectionString("Tradelink"), x => x.ServerVersion("5.7.29-mysql"));
+            // });
 
 
 
-            // services.AddDbContext<TradelinkContext>();
+            services.AddDbContext<TradelinkContext>();
             services.AddControllers();
 
         }

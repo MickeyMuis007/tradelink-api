@@ -20,10 +20,10 @@ namespace Tradelink.Persistence.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // if (!optionsBuilder.IsConfigured)
-            // {
-            //     optionsBuilder.UseMySql("server=localhost;database=eazi4u;user=root;pwd=password", x => x.ServerVersion("5.7.29-mysql"));
-            // }
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseMySql("server=localhost;database=eazi4u1;user=root;pwd=password", x => x.ServerVersion("5.7.29-mysql"));
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
