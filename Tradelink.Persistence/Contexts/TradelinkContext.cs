@@ -2,18 +2,21 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Tradelink.Persistence.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace Tradelink.Persistence.Context
 {
     public partial class TradelinkContext : DbContext
     {
+        private readonly IConfiguration _configuration;
         public TradelinkContext()
         {
         }
 
-        public TradelinkContext(DbContextOptions<TradelinkContext> options)
+        public TradelinkContext(DbContextOptions<TradelinkContext> options, IConfiguration configuration)
             : base(options)
         {
+            _configuration = configuration;
         }
         
         public virtual DbSet<Users> Users { get; set; }
@@ -22,7 +25,8 @@ namespace Tradelink.Persistence.Context
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseMySql("server=localhost;database=eazi4u1;user=root;pwd=password", x => x.ServerVersion("5.7.29-mysql"));
+                // optionsBuilder.UseMySql("server=localhost;database=eazi4u1;user=root;pwd=password", x => x.ServerVersion("5.7.29-mysql"));
+                optionsBuilder.UseMySql(_configuration.GetConnectionString("Default"), x => x.ServerVersion("5.7.29-mysql"));
             }
         }
 
