@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using Tradelink.Domain.SeedWork;
 using Tradelink.Domain.AggregateModels.RequestAggregate;
+using Tradelink.Domain.AggregateModels.RequestAggregate.Children;
 
 
 namespace Tradelink.Domain.AggregateModels.Builders
@@ -9,6 +11,9 @@ namespace Tradelink.Domain.AggregateModels.Builders
     public int Number { get; private set; }
     public DateTime Date { get; private set; }
     public bool Active { get; private set; }
+
+    public Provider provider { get; private set; }
+    public IEnumerable<Transaction> Transactions { get; private set; }
 
     public RequestBuilder() {
       Number = 0;
