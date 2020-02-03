@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 using Tradelink.Persistence.Context;
 
@@ -30,6 +31,7 @@ namespace Tradelink.Web
         {
             services.AddDbContext<TradelinkContext>();
             services.AddControllers();
+            services.AddAutoMapper(typeof(Startup));
 
         }
 

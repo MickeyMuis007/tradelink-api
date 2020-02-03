@@ -7,5 +7,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Tradelink.Persistence\Tradelink.Persistence.csproj" />
     <ProjectReference Include="..\Tradelink.Domain\Tradelink.Domain.csproj" />
+    <ProjectReference Include="..\Tradelink.Application\Tradelink.Application.csproj" />
   </ItemGroup>
 </Project>
