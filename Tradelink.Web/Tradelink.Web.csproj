@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tradelink.Persistence\Tradelink.Persistence.csproj" />
+    <ProjectReference Include="..\Tradelink.Application\Tradelink.Application.csproj" />
+    <ProjectReference Include="..\Tradelink.Infrastructure\Tradelink.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

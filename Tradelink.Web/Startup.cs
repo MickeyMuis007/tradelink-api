@@ -14,6 +14,10 @@ using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 
 using Tradelink.Persistence.Context;
+using Tradelink.Application.Logic;
+using Tradelink.Implementations.Logic.RequestLogicImpl;
+using Tradelink.Implementations.Repositories;
+using Tradelink.Domain.SeedWork;
 
 namespace Tradelink.Web
 {
@@ -33,6 +37,8 @@ namespace Tradelink.Web
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
 
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IRequestLogic, RequestLogic>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

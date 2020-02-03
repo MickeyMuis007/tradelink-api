@@ -8,8 +8,8 @@ namespace Tradelink.Application.Mapping
   {
     public RequestMappingProfile()
     {
-      CreateMap<RequestViewModel, Request>()
-        .ReverseMap();
-    } 
+      CreateMap<RequestViewModel, Request>();
+      CreateMap<Request, RequestViewModel>();
+    }
   }
 }
