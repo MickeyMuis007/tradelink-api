@@ -30,6 +30,13 @@ namespace Tradelink.Web.Controllers
       return results;
     }
 
+    [HttpGet("{id}")]
+    public async Task<RequestViewModel> GetById(Guid id)
+    {
+      var result = await _requestLogic.GetById(id);
+      return result;
+    }
+
     [HttpPost]
     public async Task<RequestViewModel> Insert([FromBody] RequestViewModel requestViewModel)
     {
