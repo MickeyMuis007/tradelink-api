@@ -37,9 +37,9 @@ namespace Tradelink.Implementations.Repositories
       _db.Update(entity);
     }
 
-    public void Delete(TEntity entity)
+    public void Delete(TId id)
     {
-      _db.Remove(entity);
+      _db.Remove(id);
     }
   }
 }
