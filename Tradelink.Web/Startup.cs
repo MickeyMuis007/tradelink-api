@@ -15,6 +15,7 @@ using AutoMapper;
 
 using Tradelink.Persistence.Context;
 using Tradelink.Application.Logic;
+using Tradelink.Application.Mapping;
 using Tradelink.Implementations.Logic.RequestLogicImpl;
 using Tradelink.Implementations.Repositories;
 using Tradelink.Domain.SeedWork;
@@ -35,7 +36,7 @@ namespace Tradelink.Web
         {
             services.AddDbContext<TradelinkContext>();
             services.AddControllers();
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(RequestMappingProfile));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IRequestLogic, RequestLogic>();
