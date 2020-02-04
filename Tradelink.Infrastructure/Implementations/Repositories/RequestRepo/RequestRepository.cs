@@ -16,5 +16,11 @@ namespace Tradelink.Implementations.Repositories.RequestRepo
       var results = await base._db.Requests.Include(t => t.Transactions).Include(t => t.Provider).ToListAsync();
       return results;
     }
+
+    public async Task<Request> GetInclude(Guid id) {
+      var result = await base._db.Requests.Include(t => t.Provider).ThenInclude(t => t.Contact).Include(t => t.Transactions).FirstAsync(t => t.Id == id);
+      return result;
+    }
+
   }
 }

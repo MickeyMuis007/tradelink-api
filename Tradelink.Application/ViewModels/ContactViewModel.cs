@@ -1,6 +1,7 @@
 using Tradelink.Application.SeedWork;
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Tradelink.Application.ViewModels
 {
@@ -9,6 +10,7 @@ namespace Tradelink.Application.ViewModels
     public string Name { get; set; }
     public string TelephoneNumber { get; set; }
     public string EmailAddress { get; set; }
+    [JsonIgnore]
     public IEnumerable<ProviderViewModel> Providers { get; set; }
   }
 }

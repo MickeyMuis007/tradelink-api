@@ -30,7 +30,7 @@ namespace Tradelink.Implementations.Logic.RequestLogicImpl
 
     public async Task<RequestViewModel> GetById(Guid id)
     {
-      var entity = await _unitOfWork.RequestRepository.GetById(id);
+      var entity = await _unitOfWork.RequestRepository.GetInclude(id);
       RequestViewModel viewModel = _mapper.Map<RequestViewModel>(entity);
       return viewModel;
     }
