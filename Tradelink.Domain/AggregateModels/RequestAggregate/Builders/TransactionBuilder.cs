@@ -1,5 +1,6 @@
 using Tradelink.Domain.SeedWork;
 using Tradelink.Domain.AggregateModels.RequestAggregate.Children;
+using Tradelink.Domain.AggregateModels.RequestAggregate;
 using System;
 
 namespace Tradelink.Domain.AggregateModels.Builders
@@ -10,6 +11,7 @@ namespace Tradelink.Domain.AggregateModels.Builders
     public int Number { get; private set; }
     public DateTime Date { get; private set; }
     public Guid RequestId { get; private set; }
+    public Request Request { get; private set; }
 
     public TransactionBuilder SetType(string type)
     {
@@ -35,12 +37,19 @@ namespace Tradelink.Domain.AggregateModels.Builders
       return this;
     }
 
+    public TransactionBuilder setRequest(Request request)
+    {
+      Request = request;
+      return this;
+    }
+
     public TransactionBuilder Copy(Transaction transaction)
     {
       Type = transaction.Type;
       Number = transaction.Number;
       Date = transaction.Date;
       RequestId = transaction.RequestId;
+      Request = transaction.Request;
       return this;
     }
 

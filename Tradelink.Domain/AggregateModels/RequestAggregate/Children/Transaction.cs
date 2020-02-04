@@ -20,6 +20,7 @@ namespace Tradelink.Domain.AggregateModels.RequestAggregate.Children
       Number = builder.Number;
       Date = builder.Date;
       RequestId = builder.RequestId;
+      Request = builder.Request;
     }
   }
 }

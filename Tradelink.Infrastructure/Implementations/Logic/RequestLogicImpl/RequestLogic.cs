@@ -41,6 +41,8 @@ namespace Tradelink.Implementations.Logic.RequestLogicImpl
       request = await _unitOfWork.RequestRepository.Insert(request);
       await _unitOfWork.SaveAsync();
       RequestViewModel viewModel = _mapper.Map<RequestViewModel>(request);
+      viewModel.provider = null;
+      viewModel.Transactions = new List<TransactionViewModel>();
       return viewModel;
     }
 
