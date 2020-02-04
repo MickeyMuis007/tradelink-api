@@ -10,6 +10,7 @@ namespace Tradelink.Domain.AggregateModels.RequestAggregate.Children
     public int Number { get; private set; }
     public DateTime Date { get; private set; }
     public Guid RequestId { get; private set; }
+    public Request Request { get; private set; }
 
     private Transaction() { }
 

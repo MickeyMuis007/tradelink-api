@@ -1,5 +1,6 @@
 
 using Tradelink.Domain.SeedWork;
+using System.Collections.Generic;
 using Tradelink.Domain.AggregateModels.RequestAggregate.Children;
 
 
@@ -10,6 +11,7 @@ namespace Tradelink.Domain.AggregateModels.Builders
      public string Name { get; private set; }
     public string TelephoneNumber { get; private set; }
     public string EmailAddress { get; private set; }
+    public IEnumerable<Provider> Providers { get; private set; }
 
     public ContactBuilder SetName(string name)
     {

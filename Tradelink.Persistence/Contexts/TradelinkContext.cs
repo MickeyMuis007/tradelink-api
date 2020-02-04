@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Tradelink.Persistence.Models;
 using Microsoft.Extensions.Configuration;
 using Tradelink.Domain.AggregateModels.RequestAggregate;
+using Tradelink.Domain.AggregateModels.RequestAggregate.Children;
+using Tradelink.Persistence.Configuration;
 
 namespace Tradelink.Persistence.Context
 {
@@ -18,8 +19,10 @@ namespace Tradelink.Persistence.Context
             _configuration = configuration;
         }
         
-        public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Request> Requests { get; set; }
+        public virtual DbSet<Contact> Contacts { get; set; }
+        public virtual DbSet<Transaction> Transactions { get; set; }
+        public virtual DbSet<Provider> Providers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,61 +35,10 @@ namespace Tradelink.Persistence.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Users>(entity =>
-            {
-                entity.ToTable("users");
-
-                entity.HasIndex(e => e.Username)
-                    .HasName("UK_r43af9ap4edm43mmtq01oddj6")
-                    .IsUnique();
-
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .HasColumnType("bigint(20)");
-
-                entity.Property(e => e.Email)
-                    .HasColumnName("email")
-                    .HasColumnType("varchar(255)")
-                    .HasCharSet("latin1")
-                    .HasCollation("latin1_swedish_ci");
-
-                entity.Property(e => e.Enabled)
-                    .HasColumnName("enabled")
-                    .HasColumnType("bit(1)");
-
-                entity.Property(e => e.Name)
-                    .HasColumnName("name")
-                    .HasColumnType("varchar(255)")
-                    .HasCharSet("latin1")
-                    .HasCollation("latin1_swedish_ci");
-
-                entity.Property(e => e.Password)
-                    .HasColumnName("password")
-                    .HasColumnType("varchar(255)")
-                    .HasCharSet("latin1")
-                    .HasCollation("latin1_swedish_ci");
-
-                entity.Property(e => e.Username)
-                    .HasColumnName("username")
-                    .HasColumnType("varchar(255)")
-                    .HasCharSet("latin1")
-                    .HasCollation("latin1_swedish_ci");
-            });
-
-
-            modelBuilder.Entity<Request>(entity => {
-                entity.ToTable("Request");
-                entity.HasKey(e => e.Id);
-                
-                entity.HasIndex(e => e.Number)
-                    .HasName("UK_Number")
-                    .IsUnique();
-
-            });
-
-            OnModelCreatingPartial(modelBuilder);
+            modelBuilder.ApplyConfiguration(new RequestConfiguration());
+            modelBuilder.ApplyConfiguration(new TransactionConfiguration());
+            modelBuilder.ApplyConfiguration(new ProviderConfiguration());
+            modelBuilder.ApplyConfiguration(new ContactConfiguration());
         }
-
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
