@@ -12,10 +12,6 @@ namespace Tradelink.Persistence.Configuration
       builder.ToTable("Request");
       builder.HasKey(e => e.Id);
 
-      builder.HasIndex(e => e.Number)
-          .HasName("UK_Number")
-          .IsUnique();
-
       builder.HasMany(t => t.Transactions)
             .WithOne(t => t.Request)
             .HasForeignKey(t => t.RequestId)
