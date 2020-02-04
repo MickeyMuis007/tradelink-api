@@ -29,7 +29,7 @@ namespace Tradelink.Persistence.Context
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseMySql("server=localhost;database=tradelink;user=root;pwd=password", x => x.ServerVersion("5.7.29-mysql"));
-                // optionsBuilder.UseMySql(_configuration.GetConnectionString("Default"), x => x.ServerVersion("5.7.29-mysql"));
+                // optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Tradelink;Integrated Security=true;MultipleActiveResultSets=true");
             }
         }
 
