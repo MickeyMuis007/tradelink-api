@@ -23,7 +23,7 @@ namespace Tradelink.Implementations.Logic.RequestLogicImpl
 
     public async Task<IEnumerable<RequestViewModel>> Get()
     {
-      var list = await _unitOfWork.RequestRepository.GetAll();
+      var list = await _unitOfWork.RequestRepository.GetAllInclude();
       var viewModels = _mapper.Map<IEnumerable<RequestViewModel>>(list);
       return viewModels;
     }

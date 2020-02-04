@@ -11,7 +11,7 @@ namespace Tradelink.Domain.AggregateModels.RequestAggregate
     public int Number { get; private set; }
     public DateTime Date { get; private set; }
     public bool Active { get; private set; }
-    public Provider provider { get; private set; }
+    public Provider Provider { get; private set; }
     public IEnumerable<Transaction> Transactions { get; private set; }
 
     public Request(RequestBuilder builder) {
