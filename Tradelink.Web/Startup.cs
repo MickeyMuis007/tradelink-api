@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using AutoMapper;
 
 using Tradelink.Persistence.Context;
@@ -46,6 +47,9 @@ namespace Tradelink.Web
 
       services.AddScoped<IUnitOfWork, UnitOfWork>();
       services.AddScoped<IRequestLogic, RequestLogic>();
+
+      services.AddIdentity<IdentityUser, IdentityRole>()
+        .AddUserStore<TradelinkContext>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tradelink.Persistence.Context;
 
 namespace Tradelink.Persistence.Migrations
 {
     [DbContext(typeof(TradelinkContext))]
-    partial class TradelinkContextModelSnapshot : ModelSnapshot
+    [Migration("20200224211122_Identity")]
+    partial class Identity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,7 +21,7 @@ namespace Tradelink.Persistence.Migrations
 
             modelBuilder.Entity("Tradelink.Domain.AggregateModels.RequestAggregate.Children.Contact", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
@@ -39,12 +41,11 @@ namespace Tradelink.Persistence.Migrations
 
             modelBuilder.Entity("Tradelink.Domain.AggregateModels.RequestAggregate.Children.Provider", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("ContactId")
-                        .IsRequired()
+                    b.Property<Guid>("ContactId")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Name")
@@ -59,7 +60,7 @@ namespace Tradelink.Persistence.Migrations
 
             modelBuilder.Entity("Tradelink.Domain.AggregateModels.RequestAggregate.Children.Transaction", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
@@ -69,8 +70,7 @@ namespace Tradelink.Persistence.Migrations
                     b.Property<int>("Number")
                         .HasColumnType("int");
 
-                    b.Property<string>("RequestId")
-                        .IsRequired()
+                    b.Property<Guid>("RequestId")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Type")
@@ -85,7 +85,7 @@ namespace Tradelink.Persistence.Migrations
 
             modelBuilder.Entity("Tradelink.Domain.AggregateModels.RequestAggregate.Request", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
@@ -98,7 +98,7 @@ namespace Tradelink.Persistence.Migrations
                     b.Property<int>("Number")
                         .HasColumnType("int");
 
-                    b.Property<string>("ProviderId")
+                    b.Property<Guid?>("ProviderId")
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
