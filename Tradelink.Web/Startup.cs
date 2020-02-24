@@ -48,8 +48,8 @@ namespace Tradelink.Web
       services.AddScoped<IUnitOfWork, UnitOfWork>();
       services.AddScoped<IRequestLogic, RequestLogic>();
 
-      services.AddIdentity<IdentityUser, IdentityRole>()
-        .AddUserStore<TradelinkContext>();
+      // services.AddIdentity<IdentityUser, IdentityRole>()
+      //   .AddUserStore<TradelinkContext>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
