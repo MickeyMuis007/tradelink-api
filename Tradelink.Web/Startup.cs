@@ -1,17 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc.Authorization;
+
 using AutoMapper;
 
 using Tradelink.Persistence.Context;
@@ -36,7 +30,7 @@ namespace Tradelink.Web
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddDbContext<TradelinkContext>();
-      services.AddControllers();
+      services.AddControllers(o => o.Filters.Add(new AuthorizeFilter()));
       services.AddAutoMapper(typeof(RequestMappingProfile));
       services.AddCors(o => o.AddPolicy("TradelinkPolicy", builder =>
       {
@@ -47,9 +41,8 @@ namespace Tradelink.Web
 
       services.AddScoped<IUnitOfWork, UnitOfWork>();
       services.AddScoped<IRequestLogic, RequestLogic>();
-
-      // services.AddIdentity<IdentityUser, IdentityRole>()
-      //   .AddUserStore<TradelinkContext>();
+      services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+        .AddCookie();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +58,8 @@ namespace Tradelink.Web
       app.UseHttpsRedirection();
 
       app.UseRouting();
+
+      app.UseAuthentication();
 
       app.UseAuthorization();
 

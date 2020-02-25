@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Tradelink.Persistence.Context;
 using Tradelink.Application.Logic;
 using Tradelink.Application.ViewModels;
@@ -11,6 +11,7 @@ namespace Tradelink.Web.Controllers
 {
   [ApiController]
   [Route("[controller]")]
+  [AllowAnonymous]
   public class RequestController : ControllerBase
   {
     private IRequestLogic _requestLogic;
