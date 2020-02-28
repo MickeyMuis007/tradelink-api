@@ -5,6 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+
+using Newtonsoft;
 
 using AutoMapper;
 
@@ -30,7 +33,8 @@ namespace Tradelink.Web
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddDbContext<TradelinkContext>();
-      services.AddControllers(o => o.Filters.Add(new AuthorizeFilter()));
+      services.AddControllers(o => o.Filters.Add(new AuthorizeFilter()))
+        .AddNewtonsoftJson(t => t.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
       services.AddAutoMapper(typeof(RequestMappingProfile));
       services.AddCors(o => o.AddPolicy("TradelinkPolicy", builder =>
       {

@@ -24,7 +24,7 @@ namespace Tradelink.Web.Controllers.Auth
     [AllowAnonymous]
     public async Task<ActionResult> Login(LoginViewModel viewModel) {
 
-      if (viewModel.Username != "test" && viewModel.Password != "test")
+      if (viewModel.Username != "test" || viewModel.Password != "test")
         return Unauthorized();
 
       var claims = new List<Claim>
@@ -42,7 +42,7 @@ namespace Tradelink.Web.Controllers.Auth
       await HttpContext.SignInAsync(
         CookieAuthenticationDefaults.AuthenticationScheme,
         principal,
-        new AuthenticationProperties { IsPersistent = true }
+        new AuthenticationProperties { IsPersistent = false }
       );
 
       var tokens = await HttpContext.GetTokenAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -51,6 +51,13 @@ namespace Tradelink.Web.Controllers.Auth
           viewModel = viewModel,
           tokens = tokens
         });
+    }
+
+    [HttpGet("Logout")]
+    public async Task<ActionResult> Logout()
+    {
+      await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+      return Ok("Signed out " + CookieAuthenticationDefaults.AuthenticationScheme);
     }
   }
 }

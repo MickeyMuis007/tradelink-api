@@ -36,5 +36,18 @@ namespace Tradelink.Web.Controllers
             })
             .ToArray();
         }
+
+        [HttpGet("user")]
+        public ActionResult GetUserIdentity() {
+            var user = User.Identity;
+            return Ok(user);
+        }
+
+        [HttpGet("user-any")]
+        [AllowAnonymous]
+        public ActionResult GetUserIdentityNotAuthorize() {
+            var user = User.Identity;
+            return Ok(user);
+        }
     }
 }
