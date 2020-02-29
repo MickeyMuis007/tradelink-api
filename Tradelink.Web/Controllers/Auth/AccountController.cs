@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication;
 using Tradelink.Application.ViewModels.Auth;
 using System.Threading.Tasks;
+using System.Linq;
 using System.Collections.Generic;
 using System.Security.Claims;
 
@@ -58,6 +60,73 @@ namespace Tradelink.Web.Controllers.Auth
     {
       await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
       return Ok("Signed out " + CookieAuthenticationDefaults.AuthenticationScheme);
+    }
+
+    [AllowAnonymous]
+    [HttpGet("LoginInWithGoogle")]
+    public ActionResult LoginWithGoogle(string returnUrl = "/") 
+    {
+      var props = new AuthenticationProperties
+      {
+        RedirectUri = Url.Action("GoogleLoginCallback"),
+        Items = 
+        {
+          { "returnUrl", returnUrl }
+        }
+      };
+      return Challenge(props, GoogleDefaults.AuthenticationScheme);
+    }
+
+    [AllowAnonymous]
+    [HttpGet("GoogleLoginCallback")]
+    public async Task<ActionResult> GoogleLoginCallback()
+    {
+      var results = await HttpContext.AuthenticateAsync(
+        ExternalAuthenticationDefaults.AuthenticationScheme
+      );
+
+      var externalClaim = results.Principal.Claims.ToList();
+
+      var subjectIdClaims = externalClaim.FirstOrDefault(
+        x => x.Type == ClaimTypes.NameIdentifier
+      );
+      var subjectValue = subjectIdClaims.Value;
+
+      var user = new { 
+        Id = subjectValue,
+        Name = "Mike",
+        Role = "Developer",
+        Admin = "Mike Test Admin"
+      };
+
+      var claims = new List<Claim>
+      {
+        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+        new Claim(ClaimTypes.Name, user.Name),
+        new Claim(ClaimTypes.Role, user.Role),
+        new Claim("Mike Admin", user.Admin)
+      };
+
+      var identity = new ClaimsIdentity(claims,
+        CookieAuthenticationDefaults.AuthenticationScheme
+      );
+      var principal = new ClaimsPrincipal(identity);
+
+      await HttpContext.SignOutAsync(
+        ExternalAuthenticationDefaults.AuthenticationScheme
+      );
+
+      await HttpContext.SignInAsync(
+        CookieAuthenticationDefaults.AuthenticationScheme, principal
+      );
+
+      return Ok(new { 
+        principal.Identity,
+        externalClaim,
+        subjectIdClaims,
+        subjectValue,
+        user
+      });
     }
   }
 }
